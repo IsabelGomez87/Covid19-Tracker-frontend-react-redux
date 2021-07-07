@@ -1,4 +1,3 @@
-/* eslint-disable no-debugger */
 import actionTypes from '../actions/actionTypes';
 
 const globalDataReducer = (initialGlobalData = {}, action) => {
