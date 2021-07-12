@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import axios from 'axios';
 import {
   loadGlobalData, loadCountry, loadVaccinesByCountry,
@@ -14,7 +13,6 @@ describe('loadGlobalData', () => {
     axios.get.mockResolvedValue(mockData);
 
     const dispatch = jest.fn();
-    // act
     await loadGlobalData()(dispatch);
 
     expect(dispatch).toHaveBeenCalledWith({
@@ -26,7 +24,6 @@ describe('loadGlobalData', () => {
   test('should dispatch LOAD_GLOBAL_ERROR', async () => {
     axios.get.mockRejectedValue();
     const dispatch = jest.fn();
-    // act
     await loadGlobalData()(dispatch);
     expect(dispatch).toHaveBeenCalledWith({
       type: 'LOAD_GLOBAL_ERROR'
@@ -40,7 +37,6 @@ describe('loadCountry', () => {
     axios.get.mockResolvedValue(mockData);
 
     const dispatch = jest.fn();
-    // act
     await loadCountry()(dispatch);
     expect(dispatch).toHaveBeenCalledWith({
       type: actionTypes.LOAD_COUNTRY,
@@ -55,7 +51,6 @@ describe('loadVaccinesByCountry', () => {
     axios.get.mockResolvedValue(mockData);
 
     const dispatch = jest.fn();
-    // act
     await loadVaccinesByCountry()(dispatch);
     expect(dispatch).toHaveBeenCalledWith({
       type: actionTypes.LOAD_VACCINES_BY_COUNTRY,
@@ -70,7 +65,6 @@ describe('loadVaccinesByContinent', () => {
     axios.get.mockResolvedValue(mockData);
 
     const dispatch = jest.fn();
-    // act
     await loadVaccinesByContinent()(dispatch);
     expect(dispatch).toHaveBeenCalledWith({
       type: actionTypes.LOAD_VACCINES_BY_CONTINENT,
@@ -85,7 +79,6 @@ describe('loadVaccinesContinentData', () => {
     axios.get.mockResolvedValue(mockData);
 
     const dispatch = jest.fn();
-    // act
     await loadVaccinesByContinent()(dispatch);
     expect(dispatch).toHaveBeenCalledWith({
       type: actionTypes.LOAD_VACCINES_MAP,

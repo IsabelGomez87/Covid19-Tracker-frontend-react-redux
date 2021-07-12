@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import actionTypes from '../actions/actionTypes';
 
 const countryHistoryReducer = (initialCountryData = {}, action) => {
