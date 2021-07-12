@@ -1,3 +1,6 @@
+/* eslint-disable guard-for-in */
+/* eslint-disable no-restricted-syntax */
+/* eslint-disable no-console */
 import axios from 'axios';
 import actionTypes from './actionTypes';
 
@@ -74,52 +77,68 @@ export const loadVaccinesByContinent = (url = `${URL}${vaccinesUrl}`) => async (
   });
 };
 
-export const loadVaccinesContinentData = (url = `${URL}${vaccinesUrl}`) => async (dispatch) => {
+export const loadVaccinesContinentData = (url = `${URL}${vaccinesUrl}/?continent=South%20America`) => async (dispatch) => {
   const { data } = await axios.get(url);
-  const allContinents = ['Africa', 'Asia', 'Oceania', 'European Union', 'North America', 'South America'];
-  let continents = allContinents.map((continent) => ([
-    continent,
-    data[continent].All.people_vaccinated,
-    data[continent].All.people_partially_vaccinated
-  ]));
+  // const allContinents = ['Africa', 'Asia', 'Oceania',
+  // 'European Union', 'North America', 'South America'];
+  // let continents = allContinents.map((continent) => ([
+  //   continent,
+  //   data[continent].All.people_vaccinated,
+  //   data[continent].All.people_partially_vaccinated
+  // ]));
 
-  const getAmericasData = (array) => {
-    const peopleVaccinatedAmericas = array[4][1] + array[5][1];
-    const peoplePartiallyVaccinatedAmericas = array[4][2] + array[5][2];
-    const americasData = ['Americas', peopleVaccinatedAmericas, peoplePartiallyVaccinatedAmericas];
-    const segmentArray = array.splice(0, 4);
-    return [...segmentArray, americasData];
-  };
-  continents = getAmericasData(continents);
+  // const getAmericasData = (array) => {
+  //   const peopleVaccinatedAmericas = array[4][1] + array[5][1];
+  //   const peoplePartiallyVaccinatedAmericas = array[4][2] + array[5][2];
+  //   const americasData = ['Americas', peopleVaccinatedAmericas,
+  //   peoplePartiallyVaccinatedAmericas];
+  //   const segmentArray = array.splice(0, 4);
+  //   return [...segmentArray, americasData];
+  // };
+  // continents = getAmericasData(continents);
 
-  continents.forEach((element) => {
-    switch (element[0]) {
-      case 'Africa':
-        element.unshift('002');
-        break;
-      case 'Asia':
-        element.unshift('142');
-        break;
-      case 'Oceania':
-        element.unshift('009');
-        break;
-      case 'European Union':
-        element.unshift('150');
-        break;
-      case 'Americas':
-        element.unshift('019');
-        break;
-      default:
-        break;
-    }
-    if (element[1] === 'European Union') {
-      // eslint-disable-next-line no-param-reassign
-      element[1] = 'Europe';
-    }
-  });
+  // continents.forEach((element) => {
+  //   switch (element[0]) {
+  //     case 'Africa':
+  //       element.unshift('002');
+  //       break;
+  //     case 'Asia':
+  //       element.unshift('142');
+  //       break;
+  //     case 'Oceania':
+  //       element.unshift('009');
+  //       break;
+  //     case 'European Union':
+  //       element.unshift('150');
+  //       break;
+  //     case 'Americas':
+  //       element.unshift('019');
+  //       break;
+  //     default:
+  //       break;
+  //   }
+  //   if (element[1] === 'European Union') {
+  //     // eslint-disable-next-line no-param-reassign
+  //     element[1] = 'Europe';
+  //   }
+  // });
+  // dispatch({
+  //   type: actionTypes.LOAD_VACCINES_MAP,
+  //   data: continents
+  // });
+  console.log('data South America', data);
+  const totalPeopleVaccinated = Object.values(data).map(
+    (element) => element.All.people_vaccinated
+  ).reduce((a, b) => a + b, 0);
+  console.log('totalPeopleVaccinated', totalPeopleVaccinated);
+  const totalPeoplepartiallyVaccinated = Object.values(data).map(
+    (element) => element.All.people_partially_vaccinated
+  ).reduce((a, b) => a + b, 0);
+  console.log('people_partially_vaccinated', totalPeoplepartiallyVaccinated);
+  const newData = [totalPeopleVaccinated, totalPeoplepartiallyVaccinated];
   dispatch({
     type: actionTypes.LOAD_VACCINES_MAP,
-    data: continents
+    data: newData
   });
 };
 
