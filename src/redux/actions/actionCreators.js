@@ -77,46 +77,49 @@ export const loadVaccinesByContinent = (url = `${URL}${vaccinesUrl}`) => async (
   });
 };
 
-export const loadVaccinesContinentData = allContinents.forEach((element) => (url = `${URL}${vaccinesUrl}/?continent=${element}`) => async (dispatch) => {
-  const { data } = await axios.get(url);
-  console.log('data by Continent', data);
-  const totalPeopleVaccinated = Object.values(data).map(
-    (country) => country.All.people_vaccinated
-  ).reduce((a, b) => a + b, 0);
-  console.log('totalPeopleVaccinated', totalPeopleVaccinated);
-  const totalPeoplepartiallyVaccinated = Object.values(data).map(
-    (country) => country.All.people_partially_vaccinated
-  ).reduce((a, b) => a + b, 0);
-  console.log('people_partially_vaccinated', totalPeoplepartiallyVaccinated);
-  const continentData = [element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated];
-  continentData.forEach((continent) => {
-    switch (continent[0]) {
-      case 'Africa':
-        continent.unshift('002');
-        break;
-      case 'Asia':
-        continent.unshift('142');
-        break;
-      case 'Oceania':
-        continent.unshift('009');
-        break;
-      case 'Europe':
-        continent.unshift('150');
-        break;
-      case 'Americas':
-        continent.unshift('019');
-        break;
-      default:
-        break;
-    }
-  });
+export const loadVaccinesContinentData = () => async (dispatch) => {
   const newData = [];
-  newData.push(continentData);
+
+  await allContinents.forEach(async (element) => {
+    const specificUrl = `${URL}${vaccinesUrl}/?continent=${element}`;
+    const { data } = await axios.get(specificUrl);
+    console.log('data by Continent', data);
+    const totalPeopleVaccinated = Object.values(data).map(
+      (country) => country.All.people_vaccinated
+    ).reduce((a, b) => a + b, 0);
+    const totalPeoplepartiallyVaccinated = Object.values(data).map(
+      (country) => country.All.people_partially_vaccinated
+    ).reduce((a, b) => a + b, 0);
+    const continentData = [element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated];
+    newData.push(continentData);
+    newData.forEach((continent) => {
+      switch (continent[0]) {
+        case 'Africa':
+          continent.splice(0, 1, '002');
+          break;
+        case 'Asia':
+          continent.splice(0, 1, '142');
+          break;
+        case 'Oceania':
+          continent.slice(0, 1, '009');
+          break;
+        case 'Europe':
+          continent.splice(0, 1, '150');
+          break;
+        case 'Americas':
+          continent.splice(0, 1, '019');
+          break;
+        default:
+          break;
+      }
+    });
+    console.log('newData despues', newData);
+  });
   dispatch({
     type: actionTypes.LOAD_VACCINES_MAP,
     data: newData
   });
-});
+};
 
 export function addCountryToFav(country) {
   return {
