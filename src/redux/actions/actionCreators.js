@@ -1,5 +1,3 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-restricted-syntax */
 /* eslint-disable no-console */
 import axios from 'axios';
 import actionTypes from './actionTypes';
@@ -8,7 +6,7 @@ const URL = 'https://covid-api.mmediagroup.fr/v1/';
 const casesUrl = 'cases';
 const vaccinesUrl = 'vaccines';
 const historyUrl = 'history';
-const allContinents = ['Africa', 'Asia', 'Oceania', 'Europe', 'North America', 'South America'];
+const allContinents = ['Africa', 'Asia', 'Oceania', 'Europe', 'North America'];
 
 export const loadGlobalData = (url = `${URL}${casesUrl}`) => async (dispatch) => {
   try {
@@ -52,12 +50,14 @@ export const loadVaccinesByCountry = (country) => async (dispatch) => {
 };
 
 const getAmericaData = (array) => {
-  const peopleVaccinatedAmericas = array[4][1] + array[5][1];
-  const peoplePartiallyVaccinatedAmericas = array[4][2] + array[5][2];
-  const updated = array[4][3];
-  const americasData = ['Americas', peopleVaccinatedAmericas, peoplePartiallyVaccinatedAmericas, updated];
+  console.log('array en getAmericaData', array);
+  const peopleVaccinatedAmericas = array[1][1] + array[5][1];
+  const peoplePartiallyVaccinatedAmericas = array[1][2] + array[5][2];
+  const americasData = ['Americas', peopleVaccinatedAmericas, peoplePartiallyVaccinatedAmericas];
   const segmentArray = array.splice(0, 4);
-  return [...segmentArray, americasData];
+  const transformedData = [...segmentArray, americasData];
+  console.log('array al final de getAmericaData', transformedData);
+  return transformedData;
 };
 
 const getContinentData = (continents, data) => continents.map((continent) => ([
@@ -78,46 +78,55 @@ export const loadVaccinesByContinent = (url = `${URL}${vaccinesUrl}`) => async (
 };
 
 export const loadVaccinesContinentData = () => async (dispatch) => {
-  const newData = [];
-
-  await allContinents.forEach(async (element) => {
+  // const newData = [];
+  allContinents.forEach(async (element) => {
     const specificUrl = `${URL}${vaccinesUrl}/?continent=${element}`;
     const { data } = await axios.get(specificUrl);
-    console.log('data by Continent', data);
     const totalPeopleVaccinated = Object.values(data).map(
       (country) => country.All.people_vaccinated
     ).reduce((a, b) => a + b, 0);
     const totalPeoplepartiallyVaccinated = Object.values(data).map(
       (country) => country.All.people_partially_vaccinated
     ).reduce((a, b) => a + b, 0);
-    const continentData = [element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated];
-    newData.push(continentData);
-    newData.forEach((continent) => {
-      switch (continent[0]) {
-        case 'Africa':
-          continent.splice(0, 1, '002');
-          break;
-        case 'Asia':
-          continent.splice(0, 1, '142');
-          break;
-        case 'Oceania':
-          continent.slice(0, 1, '009');
-          break;
-        case 'Europe':
-          continent.splice(0, 1, '150');
-          break;
-        case 'Americas':
-          continent.splice(0, 1, '019');
-          break;
-        default:
-          break;
-      }
+    const continentData = [[element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated]];
+    // newData.push(continentData);
+
+    console.log('switch', continentData[0][0]);
+    switch (continentData[0][0]) {
+      case 'Africa':
+        continentData[0].unshift('002');
+        break;
+      case 'Asia':
+        continentData[0].unshift('142');
+        break;
+      case 'Oceania':
+        continentData[0].unshift('009');
+        break;
+      case 'Europe':
+        continentData[0].unshift('150');
+        break;
+      case 'North America':
+        continentData[0].unshift('019');
+        break;
+      case 'South America':
+        continentData[0].unshift('019');
+        break;
+      default:
+        break;
+    }
+
+    console.log('newData antes de juntar Americas', continentData);
+    // const peopleVaccinatedAmericas = newData[1][1] + newData[5][1];
+    // const peoplePartiallyVaccinatedAmericas = newData[1][2] + newData[5][2];
+    // const americasData = ['Americas', peopleVaccinatedAmericas,
+    // peoplePartiallyVaccinatedAmericas];
+    // const segmentArray = newData.splice(0, 4);
+    // const transformedData = [...segmentArray, americasData];
+    // console.log('array al final de getAmericaData', transformedData);
+    dispatch({
+      type: actionTypes.LOAD_VACCINES_MAP,
+      data: continentData
     });
-    console.log('newData despues', newData);
-  });
-  dispatch({
-    type: actionTypes.LOAD_VACCINES_MAP,
-    data: newData
   });
 };
 
