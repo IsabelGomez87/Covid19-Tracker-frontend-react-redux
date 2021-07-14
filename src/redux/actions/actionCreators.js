@@ -6,7 +6,7 @@ const URL = 'https://covid-api.mmediagroup.fr/v1/';
 const casesUrl = 'cases';
 const vaccinesUrl = 'vaccines';
 const historyUrl = 'history';
-const allContinents = ['Africa', 'Asia', 'Oceania', 'Europe', 'North America'];
+const allContinents = ['Africa', 'Asia', 'Oceania', 'Europe', 'North America', 'South America'];
 
 export const loadGlobalData = (url = `${URL}${casesUrl}`) => async (dispatch) => {
   try {
@@ -110,15 +110,6 @@ export const loadVaccinesContinentData = () => async (dispatch) => {
       default:
         break;
     }
-
-    console.log('newData antes de juntar Americas', continentData);
-    // const peopleVaccinatedAmericas = newData[1][1] + newData[5][1];
-    // const peoplePartiallyVaccinatedAmericas = newData[1][2] + newData[5][2];
-    // const americasData = ['Americas', peopleVaccinatedAmericas,
-    // peoplePartiallyVaccinatedAmericas];
-    // const segmentArray = newData.splice(0, 4);
-    // const transformedData = [...segmentArray, americasData];
-    // console.log('array al final de getAmericaData', transformedData);
     dispatch({
       type: actionTypes.LOAD_VACCINES_MAP,
       data: continentData
