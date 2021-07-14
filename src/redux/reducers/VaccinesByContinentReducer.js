@@ -1,11 +1,11 @@
 import actionTypes from '../actions/actionTypes';
 
-const vaccinesByContinentReducer = (initialVaccineByContinentData = {}, action) => {
-  let updatedVaccineByContinentData = { ...initialVaccineByContinentData };
+const vaccinesByContinentReducer = (initialVaccineByContinentData = [], action) => {
   if (action.type === actionTypes.LOAD_VACCINES_BY_CONTINENT) {
-    updatedVaccineByContinentData = { ...action.data };
+    const updatedVaccineByContinentData = [...initialVaccineByContinentData, ...action.data];
+    return updatedVaccineByContinentData;
   }
-  return updatedVaccineByContinentData;
+  return initialVaccineByContinentData;
 };
 
 export default vaccinesByContinentReducer;
