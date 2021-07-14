@@ -78,7 +78,6 @@ export const loadVaccinesByContinent = (url = `${URL}${vaccinesUrl}`) => async (
 };
 
 export const loadVaccinesContinentData = () => async (dispatch) => {
-  // const newData = [];
   allContinents.forEach(async (element) => {
     const specificUrl = `${URL}${vaccinesUrl}/?continent=${element}`;
     const { data } = await axios.get(specificUrl);
@@ -89,9 +88,6 @@ export const loadVaccinesContinentData = () => async (dispatch) => {
       (country) => country.All.people_partially_vaccinated
     ).reduce((a, b) => a + b, 0);
     const continentData = [[element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated]];
-    // newData.push(continentData);
-
-    console.log('switch', continentData[0][0]);
     switch (continentData[0][0]) {
       case 'Africa':
         continentData[0].unshift('002');

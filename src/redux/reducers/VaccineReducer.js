@@ -1,16 +1,15 @@
 /* eslint-disable no-console */
 import actionTypes from '../actions/actionTypes';
 
-const vaccineReducer = (initialVaccinesContinentData = [], action) => {
-  const chartHeader = ['Region Code', 'Continent', 'People vaccinated', 'People partially vaccinated'];
-  let updatedVaccinesContinent = [...initialVaccinesContinentData];
-  console.log('action', action);
+const vaccineReducer = (initialVaccinesContinentData = [['Region Code', 'Continent', 'People vaccinated', 'People partially vaccinated']], action) => {
   if (action.type === actionTypes.LOAD_VACCINES_MAP) {
     console.log('action.data', action.data);
-    updatedVaccinesContinent = [chartHeader, ...action.data];
+    const updatedVaccinesContinent = [
+      ...initialVaccinesContinentData, ...action.data];
     console.log('updatedVaccinesContinent', updatedVaccinesContinent);
+    return updatedVaccinesContinent;
   }
-  return updatedVaccinesContinent;
+  return initialVaccinesContinentData;
 };
 
 export default vaccineReducer;
