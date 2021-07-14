@@ -6,7 +6,7 @@ const URL = 'https://covid-api.mmediagroup.fr/v1/';
 const casesUrl = 'cases';
 const vaccinesUrl = 'vaccines';
 const historyUrl = 'history';
-const allContinents = ['Africa', 'Asia', 'Oceania', 'Europe', 'North America'];
+const allContinents = ['Africa', 'Asia', 'Oceania', 'Europe', 'North America', 'South America'];
 
 export const loadGlobalData = (url = `${URL}${casesUrl}`) => async (dispatch) => {
   try {
@@ -78,7 +78,6 @@ export const loadVaccinesByContinent = (url = `${URL}${vaccinesUrl}`) => async (
 };
 
 export const loadVaccinesContinentData = () => async (dispatch) => {
-  // const newData = [];
   allContinents.forEach(async (element) => {
     const specificUrl = `${URL}${vaccinesUrl}/?continent=${element}`;
     const { data } = await axios.get(specificUrl);
@@ -89,9 +88,6 @@ export const loadVaccinesContinentData = () => async (dispatch) => {
       (country) => country.All.people_partially_vaccinated
     ).reduce((a, b) => a + b, 0);
     const continentData = [[element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated]];
-    // newData.push(continentData);
-
-    console.log('switch', continentData[0][0]);
     switch (continentData[0][0]) {
       case 'Africa':
         continentData[0].unshift('002');
@@ -114,15 +110,6 @@ export const loadVaccinesContinentData = () => async (dispatch) => {
       default:
         break;
     }
-
-    console.log('newData antes de juntar Americas', continentData);
-    // const peopleVaccinatedAmericas = newData[1][1] + newData[5][1];
-    // const peoplePartiallyVaccinatedAmericas = newData[1][2] + newData[5][2];
-    // const americasData = ['Americas', peopleVaccinatedAmericas,
-    // peoplePartiallyVaccinatedAmericas];
-    // const segmentArray = newData.splice(0, 4);
-    // const transformedData = [...segmentArray, americasData];
-    // console.log('array al final de getAmericaData', transformedData);
     dispatch({
       type: actionTypes.LOAD_VACCINES_MAP,
       data: continentData

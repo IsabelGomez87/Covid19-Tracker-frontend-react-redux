@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
@@ -10,7 +9,6 @@ const Map = ({ vaccinesContinentData, dispatch }) => {
   useEffect(() => {
     dispatch(loadVaccinesContinentData());
   }, []);
-  console.log('vaccinesContinentData en el mapa', vaccinesContinentData);
   return (
     <>
       <div className="worldwide-map">
