@@ -1,15 +1,32 @@
 @import url('https://fonts.googleapis.com/css2?family=Raleway:ital,wght@0,100;0,400;0,700;0,900;1,400&display=swap');
 
+*, *::after, *::before {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
 html {
     overflow: hidden;
     height: 100%;
     font-family: 'Raleway', sans-serif;
-    ul {
-        list-style: none;
-    }
-
     body {
         overflow: auto;
         height: 100%;
+        main {
+            min-height: calc(100vh - 230px);
+        }
+    }
+    ul {
+        list-style: none;
+    }
+    a {
+        text-decoration: none;
+        color: inherit;
+        cursor: pointer;
+    }
+    button {
+        cursor: pointer;
+
     }
 }

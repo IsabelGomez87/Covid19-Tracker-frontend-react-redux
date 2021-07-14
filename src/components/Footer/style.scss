@@ -1,8 +1,8 @@
 .footer-element {
     background-color:#21384f;
     color: #eeeeee;
-    padding:25px ;
-   
+    padding: 25px;
+    height: 160px;
     .resources-element  {
         margin: 0 auto;
         display: flex;
@@ -14,8 +14,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-
-
         a {
             padding: 0 20px;
         }
@@ -37,7 +35,6 @@
 
 a {
     color: #eeeeee;
-    text-decoration: none;
 }    
 
 .sonarqube{
