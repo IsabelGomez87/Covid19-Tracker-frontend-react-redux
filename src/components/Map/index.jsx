@@ -7,7 +7,9 @@ import './style.scss';
 
 const Map = ({ vaccinesContinentData, dispatch }) => {
   useEffect(() => {
-    dispatch(loadVaccinesContinentData());
+    if (vaccinesContinentData.length < 6) {
+      dispatch(loadVaccinesContinentData());
+    }
   }, []);
   return (
     <>

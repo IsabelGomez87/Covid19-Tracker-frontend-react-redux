@@ -25,12 +25,12 @@ export const loadGlobalData = (url = `${URL}${casesUrl}`) => async (dispatch) =>
 export const loadCountry = (country) => async (dispatch) => {
   const url = `${URL}${casesUrl}?country=${country}`;
   const { data } = await axios.get(url);
-
   dispatch({
     type: actionTypes.LOAD_COUNTRY,
     data: data.All
   });
 };
+
 export const loadCountryHistory = (country) => async (dispatch) => {
   const url = `${URL}${historyUrl}?country=${country}&status=confirmed`;
   const { data } = await axios.get(url);
