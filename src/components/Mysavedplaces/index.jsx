@@ -38,9 +38,9 @@ MySavedPlaces.propTypes = {
   favoriteCountry: PropTypes.string.isRequired
 };
 
-function mapStateToProps(store) {
+function mapStateToProps({ favoriteCountry }) {
   return {
-    favoriteCountry: store.favoriteCountry
+    favoriteCountry
   };
 }
 

@@ -2,9 +2,8 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { useParams } from 'react-router-dom';
-import './style.scss';
-
 import { addCountryToFav } from '../../redux/actions/actionCreators';
+import './style.scss';
 
 function FavoriteButton({ dispatch }) {
   const { country } = useParams();
@@ -39,9 +38,9 @@ FavoriteButton.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps(store) {
+function mapStateToProps({ favoriteCountry }) {
   return {
-    favoriteCounty: store.favoriteCountry
+    favoriteCountry
   };
 }
 

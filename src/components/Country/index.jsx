@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { useParams } from 'react-router-dom';
-import { loadCountry, loadVaccinesByCountry } from '../../redux/actions/actionCreators';
+import { loadCountryData, loadVaccinesByCountry } from '../../redux/actions/actionCreators';
 import FavoriteButton from '../FavoriteButton';
 import HistoryGraph from '../HistoryGraph';
 import './style.scss';
 
 function Country({ dispatch, countryData, vaccineByCountryData }) {
   const { country } = useParams();
-  useEffect(() => { dispatch(loadCountry(country)); }, [country]);
+  useEffect(() => { dispatch(loadCountryData(country)); }, [country]);
   useEffect(() => { dispatch(loadVaccinesByCountry(country)); }, [country]);
 
   const myInterestValuesArray = ['confirmed', 'recovered', 'deaths', 'population', 'updated'];
@@ -88,10 +88,10 @@ Country.propTypes = {
   vaccineByCountryData: PropTypes.shape({}).isRequired
 };
 
-function mapStateToProps(store) {
+function mapStateToProps({ countryData, vaccineByCountryData }) {
   return {
-    countryData: store.countryData,
-    vaccineByCountryData: store.vaccineByCountryData
+    countryData,
+    vaccineByCountryData
   };
 }
 

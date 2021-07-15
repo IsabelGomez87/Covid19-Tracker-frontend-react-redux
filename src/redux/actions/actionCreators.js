@@ -21,7 +21,7 @@ export const loadGlobalData = (url = `${URL}${casesUrl}`) => async (dispatch) =>
   }
 };
 
-export const loadCountry = (country) => async (dispatch) => {
+export const loadCountryData = (country) => async (dispatch) => {
   const url = `${URL}${casesUrl}?country=${country}`;
   const { data } = await axios.get(url);
   dispatch({
@@ -69,7 +69,7 @@ export const loadVaccinesByContinent = () => async (dispatch) => {
   });
 };
 
-export const loadVaccinesContinentData = () => async (dispatch) => {
+export const loadVaccinesDataToMap = () => async (dispatch) => {
   allContinents.forEach(async (element) => {
     const specificUrl = `${URL}${vaccinesUrl}/?continent=${element}`;
     const { data } = await axios.get(specificUrl);
@@ -116,7 +116,7 @@ export function addCountryToFav(country) {
   };
 }
 
-export function deleteFavCountry(country) {
+export function deleteCountryToFav(country) {
   return {
     type: actionTypes.DELETE_FAV,
     country

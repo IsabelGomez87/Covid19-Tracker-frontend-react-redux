@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import './style.scss';
 import magnifying from '../../assets/magnifying-pic.png';
+import './style.scss';
 
 function SearchInput() {
   const capitalizeFirstLetter = (item) => item.charAt(0).toUpperCase() + item.slice(1);

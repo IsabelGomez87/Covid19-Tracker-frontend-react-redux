@@ -4,14 +4,14 @@ import favoriteReducer from './FavoriteReducer';
 import globalDataReducer from './GlobalDataReducer';
 import vaccineByCountryReducer from './VaccineByCountryReducer';
 import vaccinesByContinentReducer from './VaccinesByContinentReducer';
-import CountryHistoryReducer from './CountryHistoryReducer';
-import vaccineReducer from './VaccineReducer';
+import countryHistoryReducer from './CountryHistoryReducer';
+import VaccinesByContinentToMapReducer from './VaccinesByContinentToMapReducer';
 
 const rootReducers = combineReducers({
   globalData: globalDataReducer,
-  vaccinesContinentData: vaccineReducer,
+  vaccinesContinentToMap: VaccinesByContinentToMapReducer,
   countryData: countryReducer,
-  countryHistoryData: CountryHistoryReducer,
+  countryHistoryData: countryHistoryReducer,
   vaccineByCountryData: vaccineByCountryReducer,
   vaccinesByContinent: vaccinesByContinentReducer,
   favoriteCountry: favoriteReducer
