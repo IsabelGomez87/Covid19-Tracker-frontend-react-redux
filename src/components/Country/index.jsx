@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { useParams } from 'react-router-dom';
 import { loadCountry, loadVaccinesByCountry } from '../../redux/actions/actionCreators';
-import './style.scss';
 import FavoriteButton from '../FavoriteButton';
 import HistoryGraph from '../HistoryGraph';
+import './style.scss';
 
 function Country({ dispatch, countryData, vaccineByCountryData }) {
   const { country } = useParams();
@@ -39,10 +39,12 @@ function Country({ dispatch, countryData, vaccineByCountryData }) {
   function printStats(array) {
     return array.map(([element, value]) => (
       <li key={`${value}`}>
-        {element.toUpperCase()}
+        {element.includes('_') ? element.replace(/_/g, ' ').toUpperCase() : element.toUpperCase()}
         :
         {' '}
-        {Number(value).toLocaleString()}
+        {(typeof value === 'number')
+          ? (Number(value).toLocaleString())
+          : (value.slice(0, 10))}
       </li>
     ));
   }
@@ -62,9 +64,13 @@ function Country({ dispatch, countryData, vaccineByCountryData }) {
             <h3>
               Vaccines
             </h3>
-            <ul>
-              {printStats(myCountryVaccineStats)}
-            </ul>
+            {myCountryVaccineStats.length !== 0
+              ? (
+                <ul>
+                  {printStats(myCountryVaccineStats)}
+                </ul>
+              )
+              : <p>No data available</p>}
           </div>
         </div>
         <div className="graph-container">
