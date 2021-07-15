@@ -25,12 +25,12 @@ export const loadGlobalData = (url = `${URL}${casesUrl}`) => async (dispatch) =>
 export const loadCountry = (country) => async (dispatch) => {
   const url = `${URL}${casesUrl}?country=${country}`;
   const { data } = await axios.get(url);
-
   dispatch({
     type: actionTypes.LOAD_COUNTRY,
     data: data.All
   });
 };
+
 export const loadCountryHistory = (country) => async (dispatch) => {
   const url = `${URL}${historyUrl}?country=${country}&status=confirmed`;
   const { data } = await axios.get(url);
@@ -49,31 +49,24 @@ export const loadVaccinesByCountry = (country) => async (dispatch) => {
   });
 };
 
-const getAmericaData = (array) => {
-  console.log('array en getAmericaData', array);
-  const peopleVaccinatedAmericas = array[1][1] + array[5][1];
-  const peoplePartiallyVaccinatedAmericas = array[1][2] + array[5][2];
-  const americasData = ['Americas', peopleVaccinatedAmericas, peoplePartiallyVaccinatedAmericas];
-  const segmentArray = array.splice(0, 4);
-  const transformedData = [...segmentArray, americasData];
-  console.log('array al final de getAmericaData', transformedData);
-  return transformedData;
-};
-
-const getContinentData = (continents, data) => continents.map((continent) => ([
-  continent,
-  data[continent].All.people_vaccinated,
-  data[continent].All.people_partially_vaccinated,
-  data[continent].All.updated
-]));
-
-export const loadVaccinesByContinent = (url = `${URL}${vaccinesUrl}`) => async (dispatch) => {
-  const { data } = await axios.get(url);
-  let continents = getContinentData(allContinents, data);
-  continents = getAmericaData(continents);
-  dispatch({
-    type: actionTypes.LOAD_VACCINES_BY_CONTINENT,
-    data: continents
+export const loadVaccinesByContinent = () => async (dispatch) => {
+  allContinents.forEach(async (element) => {
+    const specificUrl = `${URL}${vaccinesUrl}/?continent=${element}`;
+    const { data } = await axios.get(specificUrl);
+    const totalPeopleVaccinated = Object.values(data).map(
+      (country) => country.All.people_vaccinated
+    ).reduce((a, b) => a + b, 0);
+    const totalPeoplepartiallyVaccinated = Object.values(data).map(
+      (country) => country.All.people_partially_vaccinated
+    ).reduce((a, b) => a + b, 0);
+    const updatedDate = Object.values(data)[0].All.updated;
+    const continentData = [
+      [element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated, updatedDate]
+    ];
+    dispatch({
+      type: actionTypes.LOAD_VACCINES_BY_CONTINENT,
+      data: continentData
+    });
   });
 };
 

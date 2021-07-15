@@ -8,11 +8,12 @@ const Global = ({ globalData, vaccinesByContinent, dispatch }) => {
   useEffect(() => {
     dispatch(loadGlobalData());
   }, []);
-  useEffect(() => {
-    dispatch(loadVaccinesByContinent());
-  }, []);
 
-  const infoByContinent = Object.values(vaccinesByContinent);
+  useEffect(() => {
+    if (!vaccinesByContinent.length) {
+      dispatch(loadVaccinesByContinent());
+    }
+  }, []);
 
   return (
     <>
@@ -36,8 +37,8 @@ const Global = ({ globalData, vaccinesByContinent, dispatch }) => {
           <section className="vaccinatedByContinent">
             <h2>Vaccinated by continents</h2>
             <ul className="continent-cards">
-              { infoByContinent
-        && infoByContinent.map((country) => (
+              { vaccinesByContinent
+        && vaccinesByContinent.map((country) => (
           <li key={country} className="continent-card">
             <p className="continent-card__name">{country[0].toUpperCase()}</p>
             <p className="continent-card__entry">
