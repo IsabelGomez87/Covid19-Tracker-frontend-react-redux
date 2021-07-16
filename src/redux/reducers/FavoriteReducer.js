@@ -1,10 +1,13 @@
 import actionTypes from '../actions/actionTypes';
 
-function favoriteReducer(initialFavData = [], action) {
+const favoriteReducer = (initialFavData = [], action) => {
   let updatedFavData = [...initialFavData];
+  const countryIncludedInFavorites = updatedFavData.find(
+    (item) => item.includes(action.data)
+  );
   switch (action.type) {
     case actionTypes.ADD_FAV:
-      updatedFavData = [...updatedFavData, action.data];
+      if (!countryIncludedInFavorites) { (updatedFavData = [...updatedFavData, action.data]); }
       break;
     case actionTypes.DELETE_FAV:
       updatedFavData = updatedFavData.filter((country) => country !== action.country);
@@ -13,6 +16,6 @@ function favoriteReducer(initialFavData = [], action) {
       break;
   }
   return updatedFavData;
-}
+};
 
 export default favoriteReducer;

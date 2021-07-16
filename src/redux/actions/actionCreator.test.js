@@ -1,6 +1,6 @@
 import axios from 'axios';
 import {
-  loadGlobalData, loadCountry, loadVaccinesByCountry,
+  loadGlobalData, loadCountryData, loadVaccinesByCountry,
   loadVaccinesByContinent
 } from './actionCreators';
 import actionTypes from './actionTypes';
@@ -37,7 +37,7 @@ describe('loadCountry', () => {
     axios.get.mockResolvedValue(mockData);
 
     const dispatch = jest.fn();
-    await loadCountry()(dispatch);
+    await loadCountryData()(dispatch);
     expect(dispatch).toHaveBeenCalledWith({
       type: actionTypes.LOAD_COUNTRY,
       data: mockData.data.All

@@ -38,10 +38,8 @@ MySavedPlaces.propTypes = {
   favoriteCountry: PropTypes.string.isRequired
 };
 
-function mapStateToProps(store) {
-  return {
-    favoriteCountry: store.favoriteCountry
-  };
-}
+const mapStateToProps = ({ favoriteCountry }) => ({
+  favoriteCountry
+});
 
 export default connect(mapStateToProps)(MySavedPlaces);

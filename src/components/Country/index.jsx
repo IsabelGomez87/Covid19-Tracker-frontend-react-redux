@@ -2,14 +2,14 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { useParams } from 'react-router-dom';
-import { loadCountry, loadVaccinesByCountry } from '../../redux/actions/actionCreators';
+import { loadCountryData, loadVaccinesByCountry } from '../../redux/actions/actionCreators';
 import FavoriteButton from '../FavoriteButton';
 import HistoryGraph from '../HistoryGraph';
 import './style.scss';
 
-function Country({ dispatch, countryData, vaccineByCountryData }) {
+const Country = ({ dispatch, countryData, vaccineByCountryData }) => {
   const { country } = useParams();
-  useEffect(() => { dispatch(loadCountry(country)); }, [country]);
+  useEffect(() => { dispatch(loadCountryData(country)); }, [country]);
   useEffect(() => { dispatch(loadVaccinesByCountry(country)); }, [country]);
 
   const myInterestValuesArray = ['confirmed', 'recovered', 'deaths', 'population', 'updated'];
@@ -17,37 +17,35 @@ function Country({ dispatch, countryData, vaccineByCountryData }) {
   const myCountryStats = [];
   const myCountryVaccineStats = [];
 
-  function getStatsCountryValues() {
+  const getStatsCountryValues = () => {
     Object.entries(countryData).forEach(([element, value]) => {
       if (myInterestValuesArray.find((keys) => keys === element)) {
         myCountryStats.push([element, value]);
       }
       return myCountryStats;
     });
-  }
-  function getVaccinesCountryValues() {
+  };
+  const getVaccinesCountryValues = () => {
     Object.entries(vaccineByCountryData).forEach(([element, value]) => {
       if (myInterestVaccinesValuesArray.find((keys) => keys === element)) {
         myCountryVaccineStats.push([element, value]);
       }
       return myCountryVaccineStats;
     });
-  }
+  };
 
   getStatsCountryValues();
   getVaccinesCountryValues();
-  function printStats(array) {
-    return array.map(([element, value]) => (
-      <li key={`${value}`}>
-        {element.includes('_') ? element.replace(/_/g, ' ').toUpperCase() : element.toUpperCase()}
-        :
-        {' '}
-        {(typeof value === 'number')
-          ? (Number(value).toLocaleString())
-          : (value.slice(0, 10))}
-      </li>
-    ));
-  }
+  const printStats = (array) => array.map(([element, value]) => (
+    <li key={`${value}`}>
+      {element.includes('_') ? element.replace(/_/g, ' ').toUpperCase() : element.toUpperCase()}
+      :
+      {' '}
+      {(typeof value === 'number')
+        ? (Number(value).toLocaleString())
+        : (value.slice(0, 10))}
+    </li>
+  ));
 
   return (
     <>
@@ -80,7 +78,7 @@ function Country({ dispatch, countryData, vaccineByCountryData }) {
       </section>
     </>
   );
-}
+};
 
 Country.propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -88,11 +86,9 @@ Country.propTypes = {
   vaccineByCountryData: PropTypes.shape({}).isRequired
 };
 
-function mapStateToProps(store) {
-  return {
-    countryData: store.countryData,
-    vaccineByCountryData: store.vaccineByCountryData
-  };
-}
+const mapStateToProps = ({ countryData, vaccineByCountryData }) => ({
+  countryData,
+  vaccineByCountryData
+});
 
 export default connect(mapStateToProps)(Country);

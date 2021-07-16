@@ -1,9 +1,9 @@
 import actionTypes from '../actions/actionTypes';
 
-const vaccineReducer = (initialVaccinesContinentData = [['Region Code', 'Continent', 'People vaccinated', 'People partially vaccinated']], action) => {
+const VaccinesByContinentToMapReducer = (initialVaccinesContinentToMap = [['Region Code', 'Continent', 'People vaccinated', 'People partially vaccinated']], action) => {
   if (action.type === actionTypes.LOAD_VACCINES_MAP) {
     let vaccinesContinent = [
-      ...initialVaccinesContinentData, ...action.data];
+      ...initialVaccinesContinentToMap, ...action.data];
     if (vaccinesContinent.length === 7) {
       const indexNorthAmerica = vaccinesContinent.findIndex((element) => element[1] === 'North America');
       const indexSouthAmerica = vaccinesContinent.findIndex((element) => element[1] === 'South America');
@@ -19,7 +19,7 @@ const vaccineReducer = (initialVaccinesContinentData = [['Region Code', 'Contine
     }
     return vaccinesContinent;
   }
-  return initialVaccinesContinentData;
+  return initialVaccinesContinentToMap;
 };
 
-export default vaccineReducer;
+export default VaccinesByContinentToMapReducer;
