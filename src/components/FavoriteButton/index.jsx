@@ -34,6 +34,7 @@ const FavoriteButton = ({ favoriteCountry, dispatch }) => {
   return (
     <>
       <button
+        className="favButton"
         type="button"
         onClick={toFavorite ? deleteToFavorite : saveInFavorite}
       >

@@ -52,14 +52,14 @@ const Country = ({ dispatch, countryData, vaccineByCountryData }) => {
       <section className="country-section">
         <div className="country-section__data">
           <div className="country-container">
-            <h1>{country}</h1>
+            <h1 className="country-container--tittle">{country}</h1>
             <FavoriteButton />
             <ul>
               {printStats(myCountryStats)}
             </ul>
           </div>
           <div className="vacciones-container">
-            <h3>
+            <h3 className="vacciones-container--tittle">
               Vaccines
             </h3>
             {myCountryVaccineStats.length !== 0
