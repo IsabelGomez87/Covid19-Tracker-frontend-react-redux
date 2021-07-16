@@ -42,26 +42,22 @@ const Global = ({ globalData, vaccinesByContinent, dispatch }) => {
           <li key={country} className="continent-card">
             <p className="continent-card__name">{country[0].toUpperCase()}</p>
             <p className="continent-card__entry">
-              Vaccinated:
-              <span className="continent-card__data">
+              <div className="continent-card__container">
+                Vaccinated:
                 {' '}
-                {Number(country[1]).toLocaleString()}
-              </span>
+                {`${((country[1] / country[4]) * 100).toFixed(2)} %`}
+              </div>
+              <label htmlFor="file" className="continent-card__data">
+                <progress className="progress" id="file" max="100" value={(country[1] / country[4]) * 100} />
+              </label>
             </p>
             <p className="continent-card__entry">
-              Partially Vaccinated:
-              <span className="continent-card__data">
+              <div className="continent-card__container">
+                Partially Vaccinated:
                 {' '}
-                {Number(country[2]).toLocaleString()}
-              </span>
-            </p>
-            <p className="continent-card__entry">
-              Updated:
-              {' '}
-              <span className="continent-card__data">
-                {' '}
-                {country[3].slice(0, 10)}
-              </span>
+                {`${((country[2] / country[4]) * 100).toFixed(2)} %`}
+              </div>
+              <progress className="progress" id="file" max="100" value={(country[2] / country[4]) * 100} />
             </p>
           </li>
         ))}

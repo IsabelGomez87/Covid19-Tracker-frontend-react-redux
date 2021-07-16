@@ -59,8 +59,11 @@ export const loadVaccinesByContinent = () => async (dispatch) => {
       (country) => country.All.people_partially_vaccinated
     ).reduce((a, b) => a + b, 0);
     const updatedDate = Object.values(data)[0].All.updated;
+    const totalPopulation = Object.values(data).map(
+      (country) => country.All.population
+    ).reduce((a, b) => a + b, 0);
     const continentData = [
-      [element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated, updatedDate]
+      [element, totalPeopleVaccinated, totalPeoplepartiallyVaccinated, updatedDate, totalPopulation]
     ];
     dispatch({
       type: actionTypes.LOAD_VACCINES_BY_CONTINENT,
