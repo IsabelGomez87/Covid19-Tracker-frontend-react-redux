@@ -30,6 +30,14 @@ export const loadCountryData = (country) => async (dispatch) => {
   });
 };
 
+export const loadAllCountriesData = (url = `${URL}${casesUrl}`) => async (dispatch) => {
+  const { data } = await axios.get(url);
+  dispatch({
+    type: actionTypes.LOAD_ALL_COUNTRIES,
+    data
+  });
+};
+
 export const loadCountryHistory = (country) => async (dispatch) => {
   const url = `${URL}${historyUrl}?country=${country}&status=confirmed`;
   const { data } = await axios.get(url);
