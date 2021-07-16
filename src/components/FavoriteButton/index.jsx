@@ -5,17 +5,17 @@ import { useParams } from 'react-router-dom';
 import { addCountryToFav } from '../../redux/actions/actionCreators';
 import './style.scss';
 
-function FavoriteButton({ dispatch }) {
+const FavoriteButton = ({ dispatch }) => {
   const { country } = useParams();
 
-  function handleAddCountry() {
+  const handleAddCountry = () => {
     dispatch(addCountryToFav(country));
-  }
+  };
 
-  function popUpFunction() {
+  const popUpFunction = () => {
     const popup = document.querySelector('#popUp');
     popup.classList.add('show');
-  }
+  };
 
   return (
     <>
@@ -32,16 +32,14 @@ function FavoriteButton({ dispatch }) {
       </button>
     </>
   );
-}
+};
 
 FavoriteButton.propTypes = {
   dispatch: PropTypes.func.isRequired
 };
 
-function mapStateToProps({ favoriteCountry }) {
-  return {
-    favoriteCountry
-  };
-}
+const mapStateToProps = ({ favoriteCountry }) => ({
+  favoriteCountry
+});
 
 export default connect(mapStateToProps)(FavoriteButton);

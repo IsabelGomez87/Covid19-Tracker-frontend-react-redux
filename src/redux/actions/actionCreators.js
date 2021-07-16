@@ -109,16 +109,12 @@ export const loadVaccinesDataToMap = () => async (dispatch) => {
   });
 };
 
-export function addCountryToFav(country) {
-  return {
-    type: actionTypes.ADD_FAV,
-    data: country
-  };
-}
+export const addCountryToFav = (country) => ({
+  type: actionTypes.ADD_FAV,
+  data: country
+});
 
-export function deleteCountryToFav(country) {
-  return {
-    type: actionTypes.DELETE_FAV,
-    country
-  };
-}
+export const deleteCountryToFav = (country) => ({
+  type: actionTypes.DELETE_FAV,
+  country
+});

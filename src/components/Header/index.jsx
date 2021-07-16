@@ -1,10 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { useAuth0 } from '@auth0/auth0-react';
-import './style.scss';
 import SearchInput from '../SearchInput';
 import logo from '../../assets/logoC19.png';
 import userAvatar from '../../assets/user-avatar.png';
+import './style.scss';
 
 const Header = () => {
   const { isAuthenticated } = useAuth0();

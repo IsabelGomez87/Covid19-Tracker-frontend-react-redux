@@ -7,7 +7,7 @@ import FavoriteButton from '../FavoriteButton';
 import HistoryGraph from '../HistoryGraph';
 import './style.scss';
 
-function Country({ dispatch, countryData, vaccineByCountryData }) {
+const Country = ({ dispatch, countryData, vaccineByCountryData }) => {
   const { country } = useParams();
   useEffect(() => { dispatch(loadCountryData(country)); }, [country]);
   useEffect(() => { dispatch(loadVaccinesByCountry(country)); }, [country]);
@@ -17,37 +17,35 @@ function Country({ dispatch, countryData, vaccineByCountryData }) {
   const myCountryStats = [];
   const myCountryVaccineStats = [];
 
-  function getStatsCountryValues() {
+  const getStatsCountryValues = () => {
     Object.entries(countryData).forEach(([element, value]) => {
       if (myInterestValuesArray.find((keys) => keys === element)) {
         myCountryStats.push([element, value]);
       }
       return myCountryStats;
     });
-  }
-  function getVaccinesCountryValues() {
+  };
+  const getVaccinesCountryValues = () => {
     Object.entries(vaccineByCountryData).forEach(([element, value]) => {
       if (myInterestVaccinesValuesArray.find((keys) => keys === element)) {
         myCountryVaccineStats.push([element, value]);
       }
       return myCountryVaccineStats;
     });
-  }
+  };
 
   getStatsCountryValues();
   getVaccinesCountryValues();
-  function printStats(array) {
-    return array.map(([element, value]) => (
-      <li key={`${value}`}>
-        {element.includes('_') ? element.replace(/_/g, ' ').toUpperCase() : element.toUpperCase()}
-        :
-        {' '}
-        {(typeof value === 'number')
-          ? (Number(value).toLocaleString())
-          : (value.slice(0, 10))}
-      </li>
-    ));
-  }
+  const printStats = (array) => array.map(([element, value]) => (
+    <li key={`${value}`}>
+      {element.includes('_') ? element.replace(/_/g, ' ').toUpperCase() : element.toUpperCase()}
+      :
+      {' '}
+      {(typeof value === 'number')
+        ? (Number(value).toLocaleString())
+        : (value.slice(0, 10))}
+    </li>
+  ));
 
   return (
     <>
@@ -80,7 +78,7 @@ function Country({ dispatch, countryData, vaccineByCountryData }) {
       </section>
     </>
   );
-}
+};
 
 Country.propTypes = {
   dispatch: PropTypes.func.isRequired,
@@ -88,11 +86,9 @@ Country.propTypes = {
   vaccineByCountryData: PropTypes.shape({}).isRequired
 };
 
-function mapStateToProps({ countryData, vaccineByCountryData }) {
-  return {
-    countryData,
-    vaccineByCountryData
-  };
-}
+const mapStateToProps = ({ countryData, vaccineByCountryData }) => ({
+  countryData,
+  vaccineByCountryData
+});
 
 export default connect(mapStateToProps)(Country);

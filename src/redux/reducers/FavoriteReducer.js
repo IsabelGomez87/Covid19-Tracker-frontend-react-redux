@@ -1,6 +1,6 @@
 import actionTypes from '../actions/actionTypes';
 
-function favoriteReducer(initialFavData = [], action) {
+const favoriteReducer = (initialFavData = [], action) => {
   let updatedFavData = [...initialFavData];
   switch (action.type) {
     case actionTypes.ADD_FAV:
@@ -13,6 +13,6 @@ function favoriteReducer(initialFavData = [], action) {
       break;
   }
   return updatedFavData;
-}
+};
 
 export default favoriteReducer;

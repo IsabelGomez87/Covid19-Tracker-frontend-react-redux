@@ -1,10 +1,10 @@
 import { React, useEffect } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import './style.scss';
 import { Line } from 'react-chartjs-2';
 import { useParams } from 'react-router-dom';
 import { loadCountryHistory } from '../../redux/actions/actionCreators';
+import './style.scss';
 
 const HistoryGraph = ({ countryHistoryData, dispatch }) => {
   const { country } = useParams();
