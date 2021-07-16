@@ -21,10 +21,17 @@ Link {
     height: 30px;
 }
 
-button {
+.search-button {
     margin-left: 5px;
     background-color: transparent;
     border: none;
+    cursor: pointer;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    &:hover{
+        background-color: rgba(204, 203, 203, 0.9);
+    } 
 }
 
 

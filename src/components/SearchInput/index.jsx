@@ -5,7 +5,6 @@ import './style.scss';
 
 const SearchInput = () => {
   const capitalizeFirstLetter = (item) => item.charAt(0).toUpperCase() + item.slice(1);
-
   const [newSearch, setNewSearch] = useState('');
 
   return (
@@ -17,8 +16,8 @@ const SearchInput = () => {
             placeholder="Search country"
             onChange={(event) => setNewSearch((capitalizeFirstLetter(event.target.value)))}
           />
-          <button type="button">
-            <Link to={`/country/${newSearch}`}>
+          <button type="button" className="search-button">
+            <Link to={newSearch !== '' ? `/country/${newSearch}` : undefined}>
               <img src={magnifying} alt="icon" />
             </Link>
           </button>
