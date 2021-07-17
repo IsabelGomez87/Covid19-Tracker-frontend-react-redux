@@ -1,12 +1,16 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { loadGlobalData, loadVaccinesByContinent } from '../../redux/actions/actionCreators';
+import { loadGlobalData, loadVaccinesByContinent, loadAllCountriesData } from '../../redux/actions/actionCreators';
+import Table from '../Table';
 import './style.scss';
 
-const Global = ({ globalData, vaccinesByContinent, dispatch }) => {
+const Global = ({
+  globalData, vaccinesByContinent, dispatch
+}) => {
   useEffect(() => {
     dispatch(loadGlobalData());
+    dispatch(loadAllCountriesData());
   }, []);
 
   useEffect(() => {
@@ -63,6 +67,7 @@ const Global = ({ globalData, vaccinesByContinent, dispatch }) => {
         ))}
             </ul>
           </section>
+          <Table />
         </div>
       </section>
     </>
