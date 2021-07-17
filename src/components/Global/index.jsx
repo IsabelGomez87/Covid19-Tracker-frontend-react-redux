@@ -2,10 +2,11 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
 import { loadGlobalData, loadVaccinesByContinent, loadAllCountriesData } from '../../redux/actions/actionCreators';
+import Table from '../Table';
 import './style.scss';
 
 const Global = ({
-  globalData, vaccinesByContinent, allCountriesData, dispatch
+  globalData, vaccinesByContinent, dispatch
 }) => {
   useEffect(() => {
     dispatch(loadGlobalData());
@@ -66,17 +67,7 @@ const Global = ({
         ))}
             </ul>
           </section>
-          <section className="countryData">
-            <ul className="countryInfo">
-              { allCountriesData
-        && allCountriesData.map(([element, value]) => (
-          <li key={element} className="total">
-            <p className="identifier">{element.toUpperCase()}</p>
-            <p className="number">{Number(value).toLocaleString()}</p>
-          </li>
-        ))}
-            </ul>
-          </section>
+          <Table />
         </div>
       </section>
     </>
@@ -86,15 +77,13 @@ const Global = ({
 Global.propTypes = {
   globalData: PropTypes.shape([]).isRequired,
   vaccinesByContinent: PropTypes.shape([]).isRequired,
-  allCountriesData: PropTypes.shape([]).isRequired,
   dispatch: PropTypes.func.isRequired
 };
 
-const mapStateToProps = ({ globalData, vaccinesByContinent, allCountriesData }) => (
+const mapStateToProps = ({ globalData, vaccinesByContinent }) => (
   {
     globalData: Object.entries(globalData),
-    vaccinesByContinent,
-    allCountriesData: Object.entries(allCountriesData)
+    vaccinesByContinent
   }
 );
 

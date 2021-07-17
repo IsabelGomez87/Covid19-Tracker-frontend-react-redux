@@ -19,6 +19,7 @@ const App = () => (
   >
     <Provider store={store()}>
       <BrowserRouter>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons" />
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js" />
         <header>
           <Header />
