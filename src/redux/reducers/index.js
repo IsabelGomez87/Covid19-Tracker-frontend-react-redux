@@ -2,7 +2,8 @@ import { combineReducers } from 'redux';
 import countryReducer from './CountryReducer';
 import favoriteReducer from './FavoriteReducer';
 import globalDataReducer from './GlobalDataReducer';
-import allCountriesDataReducer from './AllCountriesDataReducer';
+import allCountriesCasesReducer from './AllCountriesCasesReducer';
+import allCountriesVaccinesReducer from './AllCountriesVaccinesReducer';
 import vaccineByCountryReducer from './VaccineByCountryReducer';
 import vaccinesByContinentReducer from './VaccinesByContinentReducer';
 import countryHistoryReducer from './CountryHistoryReducer';
@@ -13,7 +14,8 @@ const rootReducers = combineReducers({
   vaccinesContinentToMap: VaccinesByContinentToMapReducer,
   countryData: countryReducer,
   countryHistoryData: countryHistoryReducer,
-  allCountriesData: allCountriesDataReducer,
+  allCountriesCases: allCountriesCasesReducer,
+  allCountriesVaccines: allCountriesVaccinesReducer,
   vaccineByCountryData: vaccineByCountryReducer,
   vaccinesByContinent: vaccinesByContinentReducer,
   favoriteCountry: favoriteReducer

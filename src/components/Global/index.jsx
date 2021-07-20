@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { PropTypes } from 'prop-types';
-import { loadGlobalData, loadVaccinesByContinent, loadAllCountriesData } from '../../redux/actions/actionCreators';
+import { loadGlobalData, loadVaccinesByContinent, loadAllCasesCountriesData } from '../../redux/actions/actionCreators';
 import Table from '../Table';
 import './style.scss';
 
@@ -10,7 +10,7 @@ const Global = ({
 }) => {
   useEffect(() => {
     dispatch(loadGlobalData());
-    dispatch(loadAllCountriesData());
+    dispatch(loadAllCasesCountriesData());
   }, []);
 
   useEffect(() => {
