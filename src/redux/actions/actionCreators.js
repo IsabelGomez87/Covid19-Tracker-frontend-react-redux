@@ -30,10 +30,18 @@ export const loadCountryData = (country) => async (dispatch) => {
   });
 };
 
-export const loadAllCountriesData = (url = `${URL}${casesUrl}`) => async (dispatch) => {
+export const loadAllCasesCountriesData = (url = `${URL}${casesUrl}`) => async (dispatch) => {
   const { data } = await axios.get(url);
   dispatch({
-    type: actionTypes.LOAD_ALL_COUNTRIES,
+    type: actionTypes.LOAD_CASES_ALL_COUNTRIES,
+    data
+  });
+};
+
+export const loadAllVaccinesCountriesData = (url = `${URL}${vaccinesUrl}`) => async (dispatch) => {
+  const { data } = await axios.get(url);
+  dispatch({
+    type: actionTypes.LOAD_VACCINES_ALL_COUNTRIES,
     data
   });
 };
