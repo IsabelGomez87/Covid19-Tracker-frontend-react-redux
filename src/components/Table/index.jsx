@@ -23,23 +23,6 @@ const TableData = ({ allCountriesData, dispatch }) => {
     }
   });
 
-  //   const createData = (array) => {
-  //     array.map((element) => [
-  //       element.country,
-  //       element.population,
-  //       element.confirmedCases,
-  //       element.recoveredCases,
-  //       element.deaths,
-  //       element.vaccinesAdministered,
-  //       element.peopleVaccinated,
-  //       element.peoplePartiallyVaccinated
-  //     ]);
-  //   };
-
-  //   const rows = [
-  //     createData(allCountriesData)
-  //   ];
-
   const classes = useStyles();
 
   return (
@@ -51,12 +34,12 @@ const TableData = ({ allCountriesData, dispatch }) => {
             <TableCell align="right">Continent</TableCell>
             <TableCell align="right">Capital City</TableCell>
             <TableCell align="right">Population</TableCell>
-            <TableCell align="right">Confirmed Cases</TableCell>
-            <TableCell align="right">Recovered Cases</TableCell>
-            <TableCell align="right">Deaths</TableCell>
-            <TableCell align="right">Vaccines Administered</TableCell>
-            <TableCell align="right">People Vaccinated</TableCell>
-            <TableCell align="right">People Partially Vaccinated</TableCell>
+            <TableCell align="right">Confirmed Cases (% / population)</TableCell>
+            <TableCell align="right">Recovered Cases (% / population)</TableCell>
+            <TableCell align="right">Deaths (% / population)</TableCell>
+            <TableCell align="right">Vaccines Administered (% / population)</TableCell>
+            <TableCell align="right">People Vaccinated (% / population)</TableCell>
+            <TableCell align="right">People Partially Vaccinated (% / population)</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
@@ -65,14 +48,13 @@ const TableData = ({ allCountriesData, dispatch }) => {
               <TableCell component="th" scope="row">{element.country}</TableCell>
               <TableCell align="right">{element.continent}</TableCell>
               <TableCell align="right">{element.capital_city}</TableCell>
-              <TableCell align="right">{element.population}</TableCell>
-              {/* ponerlos en porcentajes */}
-              <TableCell align="right">{element.confirmed}</TableCell>
-              <TableCell align="right">{element.recovered}</TableCell>
-              <TableCell align="right">{element.deaths}</TableCell>
-              <TableCell align="right">{element.administered}</TableCell>
-              <TableCell align="right">{element.people_vaccinated}</TableCell>
-              <TableCell align="right">{element.people_partially_vaccinated}</TableCell>
+              <TableCell align="right">{Number(element.population).toLocaleString()}</TableCell>
+              <TableCell align="right">{`${((element.confirmed / element.population) * 100).toFixed(2)} %`}</TableCell>
+              <TableCell align="right">{`${((element.recovered / element.population) * 100).toFixed(2)} %`}</TableCell>
+              <TableCell align="right">{`${((element.deaths / element.population) * 100).toFixed(2)} %`}</TableCell>
+              <TableCell align="right">{`${((element.administered / element.population) * 100).toFixed(2)} %`}</TableCell>
+              <TableCell align="right">{`${((element.people_vaccinated / element.population) * 100).toFixed(2)} %`}</TableCell>
+              <TableCell align="right">{`${((element.people_partially_vaccinated / element.population) * 100).toFixed(2)} %`}</TableCell>
             </TableRow>
           ))}
         </TableBody>
